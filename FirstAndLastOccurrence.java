@@ -45,7 +45,7 @@ public class FirstAndLastOccurrence{
     public static void main(String[] args){
         FirstAndLastOccurrence f1 = new FirstAndLastOccurrence();
         int[] arr = {2, 4, 6, 8, 8, 8, 11, 13};
-        int target = 8;
+        int target = 12;
         int[] res = f1.getFirstAndLastIndex(arr, target);
         System.out.println("Result : "+Arrays.toString(res));
         
