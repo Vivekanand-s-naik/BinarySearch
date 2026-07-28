@@ -1,6 +1,5 @@
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class BinarySearch {
 
@@ -101,6 +100,27 @@ public class BinarySearch {
         return res;
     }
 
+    static int binarySearchInInfiniteArray(int arr[], int target) {
+        int start = 0;
+        int end = 1;
+
+        while (arr[end] < target) {
+            end = end * 2;
+        }
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (arr[mid] == target) {
+                return mid;
+            }
+            if (arr[mid] < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return -1;
+    }
+
     public static void main(String[] args) throws IOException {
         // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         // int n = 5;
@@ -120,10 +140,12 @@ public class BinarySearch {
         // int floor = floorOfNumber(arr, target);
         // System.out.println("floor : " + floor);
         // System.out.println(res);
-        int[] arr = new int[]{5, 7, 7, 8, 8, 10};
-        int target = 8;
-        int[] range = new int[]{searchRange(arr, target, true), searchRange(arr, target, false)};
+        int[] arr = new int[]{5, 7, 7, 8, 8, 10, 78, 99, 100, 101, 112, 114};
+        int target = 100;
+        int res = binarySearchInInfiniteArray(arr, target);
+        System.out.println(res);
 
-        System.out.println(Arrays.toString(range));
+        // int[] range = new int[]{searchRange(arr, target, true), searchRange(arr, target, false)};
+        // System.out.println(Arrays.toString(range));
     }
 }
