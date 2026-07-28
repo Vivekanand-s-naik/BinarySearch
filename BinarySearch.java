@@ -8,7 +8,7 @@ public class BinarySearch {
     static int bs(int[] arr, int target, int size) {
         int start = 0;
         int end = size - 1;
-        int res = -1;
+
         while (start <= end) {
             int mid = start + (end - start) / 2;
             if (arr[mid] == target) {
@@ -20,7 +20,7 @@ public class BinarySearch {
                 end = mid - 1;
             }
         }
-        return res;
+        return -1;
     }
 
     static int ceilingOfNumber(int[] arr, int target) {
@@ -44,6 +44,31 @@ public class BinarySearch {
         return start;
     }
 
+    static int floorOfNumber(int[] arr, int target) {
+        // floor => largest Number samller than or equal to target
+        int start = 0;
+        int end = arr.length - 1;
+
+        if (arr[start] > target) {
+            return -1;
+        }
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (arr[mid] == target) {
+                return mid;
+            }
+
+            if (arr[mid] < target) {
+                start = mid + 1; 
+            }else {
+                end = mid - 1;
+            }
+        }
+
+        return end;
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = 5;
@@ -63,6 +88,9 @@ public class BinarySearch {
         int ceil = ceilingOfNumber(arr, target);
 
         System.out.println("Ceiling : " + ceil);
+
+        int floor = floorOfNumber(arr, target);
+        System.out.println("floor : " + floor);
         // System.out.println(res);
 
     }
