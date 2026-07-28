@@ -1,7 +1,6 @@
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class BinarySearch {
 
@@ -60,8 +59,8 @@ public class BinarySearch {
             }
 
             if (arr[mid] < target) {
-                start = mid + 1; 
-            }else {
+                start = mid + 1;
+            } else {
                 end = mid - 1;
             }
         }
@@ -69,29 +68,62 @@ public class BinarySearch {
         return end;
     }
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = 5;
-        int[] arr = new int[n];
+    static int searchRange(int[] nums, int target, boolean fromStart) {
+        // nums = [5,7,7,8,8,10], target = 8
+        int start = 0;
+        int end = nums.length - 1;
+        int res = -1;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
 
-        int target;
-        System.out.println("Enter " + n + " Array Elements (space in between) :");
-        String[] parts = br.readLine().split(" ");
-        System.out.println("Enter Target Element :");
-        target = Integer.parseInt(br.readLine());
-
-        for (int i = 0; i < parts.length; i++) {
-            arr[i] = Integer.parseInt(parts[i]);
+            if (fromStart) {
+                //search towards left 
+                if (nums[mid] >= target) {
+                    end = mid - 1;
+                    if (nums[mid] == target) {
+                        res = mid;
+                    }
+                } else {
+                    start = mid + 1;
+                }
+            } else {
+                //search towards right
+                if (nums[mid] <= target) {
+                    start = mid + 1;
+                    if (nums[mid] == target) {
+                        res = mid;
+                    }
+                } else {
+                    end = mid - 1;
+                }
+            }
         }
+        return res;
+    }
 
-        int res = bs(arr, target, arr.length);
-        int ceil = ceilingOfNumber(arr, target);
+    public static void main(String[] args) throws IOException {
+        // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // int n = 5;
+        // int[] arr = new int[n];
 
-        System.out.println("Ceiling : " + ceil);
-
-        int floor = floorOfNumber(arr, target);
-        System.out.println("floor : " + floor);
+        // int target;
+        // System.out.println("Enter " + n + " Array Elements (space in between) :");
+        // String[] parts = br.readLine().split(" ");
+        // System.out.println("Enter Target Element :");
+        // target = Integer.parseInt(br.readLine());
+        // for (int i = 0; i < parts.length; i++) {
+        //     arr[i] = Integer.parseInt(parts[i]);
+        // }
+        // int res = bs(arr, target, arr.length);
+        // int ceil = ceilingOfNumber(arr, target);
+        // System.out.println("Ceiling : " + ceil);
+        // int floor = floorOfNumber(arr, target);
+        // System.out.println("floor : " + floor);
         // System.out.println(res);
+        int[] arr = new int[]{5, 7, 7, 8, 8, 10};
+        int target = 8;
+        int[] range = new int[]{searchRange(arr, target, true), searchRange(arr, target, false)};
 
+        System.out.println(Arrays.toString(range));
     }
 }
