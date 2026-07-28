@@ -104,8 +104,15 @@ public class BinarySearch {
         int start = 0;
         int end = 1;
 
-        while (arr[end] < target) {
-            end = end * 2;
+        //update the size by current size * 2
+        try {
+            while (arr[end] < target) {
+                System.out.println("start : " + start + "End : " + end);
+                int newStart = end + 1;
+                end = end + (end - start + 1) * 2;
+                start = newStart;
+            }
+        } catch (Exception e) {
         }
         while (start <= end) {
             int mid = start + (end - start) / 2;
