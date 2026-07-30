@@ -128,6 +128,77 @@ public class BinarySearch {
         return -1;
     }
 
+    static int getPivotIndex(int[] arr) {
+        //4 cases for rotated Array 
+        // 1. if mid elem > next elem then return mid
+        // 2. if mid-1 elem > mid elem return mid - 1
+        // 3. start elem > mid, end = mid
+        // 4. start elem < mid, start = mid + 1
+        int start = 0;
+        int end = arr.length - 1;
+        if (end == 0) {
+            return 0;
+        }
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            // Case 1: mid is the pivot
+            if (mid < end && arr[mid] > arr[mid + 1]) {
+                return mid;
+            }
+
+            // Case 2: mid - 1 is the pivot
+            if (mid > start && arr[mid - 1] > arr[mid]) {
+                return mid - 1;
+            }
+
+            // Case 3: pivot is on the left
+            if (arr[start] >= arr[mid]) {
+                end = mid - 1;
+            } // Case 4: pivot is on the right
+            else {
+                start = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    static int sqrtOfNum(int num) {
+        int start = 0;
+        int end = num;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            long sq = (long) mid * mid;
+            if (sq == num) {
+                return mid;
+            }
+            if (sq > num) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return end;
+    }
+
+    static boolean searchMatrix(int[][] matrix, int target) {
+        int start = 0;
+        int end = matrix[0].length - 1;
+
+        while (start < matrix[0].length && end >= 0) {
+            if (matrix[start][end] == target) {
+                return true;
+            }
+
+            if (matrix[start][end] > target) {
+                end--;
+            } else if (matrix[start][end] < target) {
+                start++;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) throws IOException {
         // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         // int n = 5;
@@ -147,12 +218,22 @@ public class BinarySearch {
         // int floor = floorOfNumber(arr, target);
         // System.out.println("floor : " + floor);
         // System.out.println(res);
-        int[] arr = new int[]{5, 7, 7, 8, 8, 10, 78, 99, 100, 101, 112, 114};
-        int target = 100;
-        int res = binarySearchInInfiniteArray(arr, target);
-        System.out.println(res);
-
+        // int[] arr = new int[]{4, 1, 3};
+        // int minElem = Arrays.stream(arr).sum();
+        // System.out.println(minElem);
+        // int target = 1;
+        // int res = getPivotIndex(arr);
+        // System.out.println(res);
         // int[] range = new int[]{searchRange(arr, target, true), searchRange(arr, target, false)};
         // System.out.println(Arrays.toString(range));
+        // int num = 2147395599;
+        // System.out.println("sq : " + sqrtOfNum(num));
+        int num = 5;
+        for (int i = 1; i <= num; i++) {
+            System.out.println(num + (1 / Math.pow(10, i)));
+        }
+        int[][] matrix = {{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}};
+        System.out.println(searchMatrix(matrix, 8));
+
     }
 }
