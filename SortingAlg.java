@@ -26,10 +26,23 @@ Learnt 3 sorting algorithms
 public class SortingAlg {
 
     public static void main(String[] args) {
-        int[] arr = {1, 5, 2, 6, 10, -1};
+        int[] arr = new int[]{9, 1, 2, 5, 3, 8, 7, 4, 6};
         System.out.println(Arrays.toString(arr));
-        insertionSort(arr);
+        cyclicSort(arr);
         System.out.println(Arrays.toString(arr));
+    }
+
+    static void cyclicSort(int[] arr) {
+        int i = 0; //acts as key
+        while (i < arr.length) {
+            //Get the correct index of i^th element
+            int correctIndex = arr[i] - 1;
+            if (arr[i] == arr[correctIndex]) {
+                i++;
+            } else {
+                swapElement(arr, i, correctIndex);
+            }
+        }
     }
 
     //Selection Sort
