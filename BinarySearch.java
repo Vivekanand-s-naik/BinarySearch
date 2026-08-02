@@ -245,12 +245,40 @@ public class BinarySearch {
         // System.out.println(Arrays.toString(range));
         // int num = 2147395599;
         // System.out.println("sq : " + sqrtOfNum(num));
-        int num = 5;
-        for (int i = 1; i <= num; i++) {
-            System.out.println(num + (1 / Math.pow(10, i)));
-        }
-        int[][] matrix = {{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}};
-        System.out.println(searchMatrix(matrix, 8));
+        // int num = 5;
+        // for (int i = 1; i <= num; i++) {
+        //     System.out.println(num + (1 / Math.pow(10, i)));
+        // }
+        // int[][] matrix = {{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}};
+        // System.out.println(searchMatrix(matrix, 8));
+        System.out.println(findMin(new int[]{3, 3, 3, 3, 3, 3, 3, 3, 1, 3}));
 
+    }
+
+    static int findMin(int[] nums) {
+        int peakIndex = getPeakIndex(nums);
+        System.out.println(peakIndex);
+        return nums[(peakIndex + 1) % nums.length];
+    }
+
+    static int getPeakIndex(int[] arr) {
+        int len = arr.length;
+        int start = 0;
+        int end = len - 1;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (mid < len - 1 && arr[mid] > arr[mid + 1]) {
+                return mid;
+            }
+            if (mid > 0 && arr[mid - 1] > arr[mid]) {
+                return mid - 1;
+            }
+            if (arr[start] <= arr[mid] || arr[start] == arr[mid] && arr[end] < arr[mid]) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return -1;
     }
 }
