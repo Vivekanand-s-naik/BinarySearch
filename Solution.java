@@ -154,7 +154,7 @@ class Solution {
     public static void main(String[] args) {
         // int[] nums1 = new int[]{1, 3};
         // int[] nums2 = new int[]{2, 7};
-        // System.out.println(findMedianSortedArrays(nums1, nums2));
+        System.out.println(findMedianSortedArrays(nums1, nums2));
         int[] arr = new int[]{1, 2};
         int res = elementGreaterThanK(arr, arr.length, 2);
         System.out.println(res);
