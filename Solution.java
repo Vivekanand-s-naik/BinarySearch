@@ -1,4 +1,38 @@
 
+class Solution {
+
+    public static void main(String[] args) {
+        String a = "Vivek";
+        String b = a;
+        a = "Vivekanand";
+
+        System.out.println(isPalindrome(a));
+        System.out.println(isPalindrome("abccba"));
+        // System.out.println(a);
+        // System.out.println(b);
+        // String str1 = new String("Vivekanand");
+        // String str2 = new String("Vivekanand");
+        // System.out.println(str1 == str2);
+        // System.out.println(str1.equals(str2));
+        // System.out.println('a' - "bc");
+        // char ch = (char) 'a';
+    }
+
+    static boolean isPalindrome(String str) {
+        str = str.toLowerCase();
+        int len = str.length();
+        for (int i = 0; i <= len / 2; i++) {
+            char start = str.charAt(i);
+            char end = str.charAt(len - 1 - i);
+
+            if (start != end) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
 // import java.util.ArrayList;
 // import java.util.Arrays;
 // import java.util.List;
@@ -149,125 +183,155 @@
 //         return list;
 //     }
 // }
-class Solution {
-
-    public static void main(String[] args) {
-        // int[] nums1 = new int[]{1, 3};
-        // int[] nums2 = new int[]{2, 7};
-        System.out.println(findMedianSortedArrays(nums1, nums2));
-        int[] arr = new int[]{1, 2};
-        int res = elementGreaterThanK(arr, arr.length, 2);
-        System.out.println(res);
-    }
-
-    static int elementGreaterThanK(int[] arr, int len, int k) {
-        int start = 0;
-        int end = len - 1;
-        int res = k;
-        while (start < end) {
-            int mid = start + (end - start) / 2;
-            if (arr[mid] <= k) {
-                start = mid + 1;
-            } else {
-                end = mid - 1;
-                res = arr[mid];
-            }
-        }
-        System.out.println("start : " + arr[start] + " End" + arr[end]);
-        return res;
-    }
-
-    static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int len1 = nums1.length;
-        int len2 = nums2.length;
-        if (len1 == 0 && len2 == 1) {
-            return nums2[len2 - 1];
-        }
-        if (len2 == 0 && len1 == 1) {
-            return nums1[len1 - 1];
-        }
-
-        double start = nums1[0] < nums2[0] ? nums1[0] : nums2[0];
-        double end = nums1[len1 - 1] > nums2[len2 - 1] ? nums1[len1 - 1] : nums2[len2 - 1];
-        double median = nums1[0];
-        // while (start <= end) {
-        double mid = start + (end - start) / 2;
-        if ((len1 + len2) % 2 == 0) {
-            return mid;
-        }
-
-        median = getMedian(nums1, nums2, len1, len2, mid);
-        System.out.println("median : " + median);
-        if (mid == median) {
-            return mid;
-        }
-        //     if (median > mid) {
-        //         start = mid + 1;
-        //     } else {
-        //         end = mid - 1;
-        //     }
-        // }
-        return median;
-    }
-
-    static double getMedian(int[] nums1, int[] nums2, int len1, int len2, double target) {
-        if ((len1 + len2) % 2 == 0) {
-            return target;
-        }
-        int res1 = bs(nums1, len1, (int) target);
-        if (res1 != -1) {
-            return res1;
-        }
-        int res2 = bs(nums2, len2, (int) target);
-        if (res2 != -1) {
-            return res2;
-        }
-        //the mid value is not present, So return the value less then median
-        if (nums1[len1 - 1] > target) {
-            return lessMedianValue(nums1, len1, (int) target);
-        }
-        int res4 = lessMedianValue(nums2, len2, (int) target);
-        if (res4 != -1) {
-            return res4;
-        }
-        return target;
-    }
-
-    static int bs(int[] arr, int size, int target) {
-        int start = 0;
-        int end = size - 1;
-        System.out.println("target : " + target);
-
-        while (start <= end) {
-            int mid = start + (end - start) / 2;
-            if (arr[mid] == target) {
-                System.out.println(":mid " + mid);
-                return arr[mid];
-            }
-            if (arr[mid] < target) {
-                start = mid + 1;
-            } else {
-                end = mid - 1;
-            }
-        }
-        return -1;
-    }
-
-    static int lessMedianValue(int[] arr, int size, int target) {
-        int start = 0;
-        int end = size - 1;
-        System.out.println("target : " + target);
-
-        while (start <= end) {
-            int mid = start + (end - start) / 2;
-            if (arr[mid] >= target) {
-                end = mid;
-            } else {
-                start = mid + 1;
-            }
-        }
-        // System.out.println("arrend : "+arr[end]);
-
-        return arr[start - 1];
-    }
-}
+// class Solution {
+//     public static void main(String[] args) {
+//         // int[] nums1 = new int[]{1, 3};
+//         // int[] nums2 = new int[]{2, 7};
+//         System.out.println(findMedianSortedArrays(nums1, nums2));
+//         int[] arr = new int[]{1, 2};
+//         int res = elementGreaterThanK(arr, arr.length, 2);
+//         System.out.println(res);
+//     }
+//     static int elementGreaterThanK(int[] arr, int len, int k) {
+//         int start = 0;
+//         int end = len - 1;
+//         int res = k;
+//         while (start < end) {
+//             int mid = start + (end - start) / 2;
+//             if (arr[mid] <= k) {
+//                 start = mid + 1;
+//             } else {
+//                 end = mid - 1;
+//                 res = arr[mid];
+//             }
+//         }
+//         System.out.println("start : " + arr[start] + " End" + arr[end]);
+//         return res;
+//     }
+//     static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+//         int len1 = nums1.length;
+//         int len2 = nums2.length;
+//         if (len1 == 0 && len2 == 1) {
+//             return nums2[len2 - 1];
+//         }
+//         if (len2 == 0 && len1 == 1) {
+//             return nums1[len1 - 1];
+//         }
+//         double start = nums1[0] < nums2[0] ? nums1[0] : nums2[0];
+//         double end = nums1[len1 - 1] > nums2[len2 - 1] ? nums1[len1 - 1] : nums2[len2 - 1];
+//         double median = nums1[0];
+//         // while (start <= end) {
+//         double mid = start + (end - start) / 2;
+//         if ((len1 + len2) % 2 == 0) {
+//             return mid;
+//         }
+//         median = getMedian(nums1, nums2, len1, len2, mid);
+//         System.out.println("median : " + median);
+//         if (mid == median) {
+//             return mid;
+//         }
+//         //     if (median > mid) {
+//         //         start = mid + 1;
+//         //     } else {
+//         //         end = mid - 1;
+//         //     }
+//         // }
+//         return median;
+//     }
+//     static double getMedian(int[] nums1, int[] nums2, int len1, int len2, double target) {
+//         if ((len1 + len2) % 2 == 0) {
+//             return target;
+//         }
+//         int res1 = bs(nums1, len1, (int) target);
+//         if (res1 != -1) {
+//             return res1;
+//         }
+//         int res2 = bs(nums2, len2, (int) target);
+//         if (res2 != -1) {
+//             return res2;
+//         }
+//         //the mid value is not present, So return the value less then median
+//         if (nums1[len1 - 1] > target) {
+//             return lessMedianValue(nums1, len1, (int) target);
+//         }
+//         int res4 = lessMedianValue(nums2, len2, (int) target);
+//         if (res4 != -1) {
+//             return res4;
+//         }
+//         return target;
+//     }
+//     static int bs(int[] arr, int size, int target) {
+//         int start = 0;
+//         int end = size - 1;
+//         System.out.println("target : " + target);
+//         while (start <= end) {
+//             int mid = start + (end - start) / 2;
+//             if (arr[mid] == target) {
+//                 System.out.println(":mid " + mid);
+//                 return arr[mid];
+//             }
+//             if (arr[mid] < target) {
+//                 start = mid + 1;
+//             } else {
+//                 end = mid - 1;
+//             }
+//         }
+//         return -1;
+//     }
+//     static int lessMedianValue(int[] arr, int size, int target) {
+//         int start = 0;
+//         int end = size - 1;
+//         System.out.println("target : " + target);
+//         while (start <= end) {
+//             int mid = start + (end - start) / 2;
+//             if (arr[mid] >= target) {
+//                 end = mid;
+//             } else {
+//                 start = mid + 1;
+//             }
+//         }
+//         // System.out.println("arrend : "+arr[end]);
+//         return arr[start - 1];
+//     }
+// }
+// import java.util.Collection;
+// import java.util.HashMap;
+// import java.util.Iterator;
+// import java.util.Map;
+// class Solution {
+//     public boolean isAnagram(String s, String t) {
+//         if (s.length() != t.length()) {
+//             return false;
+//         }
+//         Map<Character, Integer> charMap1 = new HashMap<>();
+//         Map<Character, Integer> charMap2 = new HashMap<>();
+//         for (char ch : s.toCharArray()) {
+//             if (charMap1.containsKey(ch)) {
+//                 charMap1.put(ch, charMap1.get(ch) + 1);
+//             } else {
+//                 charMap1.put(ch, 0);
+//             }
+//         }
+//         for (char ch : t.toCharArray()) {
+//             if (charMap2.containsKey(ch)) {
+//                 charMap2.put(ch, charMap2.get(ch) + 1);
+//             } else {
+//                 charMap2.put(ch, 0);
+//             }
+//         }
+//         Collection<Character> mapKeys1 = charMap1.keySet();
+//         Iterator<Character> map1 = mapKeys1.iterator();
+//         while (map1.hasNext()) {
+//             Character ch = map1.next();
+//             if (charMap2.containsKey(ch)) {
+//                 if ((int) charMap1.get(ch) != (int) charMap2.get(ch)) {
+//                     return false;
+//                 }
+//             } else {
+//                 return false;
+//             }
+//         }
+//         // for()
+//         return true;
+//     }
+// }
